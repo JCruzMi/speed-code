@@ -1,9 +1,15 @@
-<script setup lang="ts"></script>
+<script setup lang="ts">
+import { ref } from 'vue';
+import Editor from 'simple-code-editor';
+import hljs from 'highlight.js';
+
+const code = ref(`function() {
+  console.log('Hello, World!');
+}`);
+
+const highlightCode = (code: string) => hljs.highlightAuto(code).value;
+</script>
 
 <template>
-  <h2>Global</h2>
-
-  <textarea id="global" class="code" rows="1">
-const data = [...Array(1000).key()]</textarea
-  >
+  <Editor v-model="code" :highlight="highlightCode" lang="javascript" />
 </template>
