@@ -1,4 +1,4 @@
-<script setup lang="ts">
+<script setup>
 import { ref } from 'vue';
 import Editor from 'simple-code-editor';
 import hljs from 'highlight.js';
@@ -7,7 +7,7 @@ const code = ref(`function() {
   console.log('Hello, World!');
 }`);
 
-const highlightCode = (code: string) => hljs.highlightAuto(code).value;
+const highlightCode = (code) => hljs.highlightAuto(code).value;
 </script>
 
 <template>
