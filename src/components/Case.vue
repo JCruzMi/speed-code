@@ -1,7 +1,7 @@
 <script setup>
-import { defineProps } from 'vue';
-import Editor from 'simple-code-editor';
-import hljs from 'highlight.js';
+import { defineProps } from "vue";
+import Editor from "simple-code-editor";
+import hljs from "highlight.js";
 
 const props = defineProps({
   id: Number,
@@ -9,6 +9,7 @@ const props = defineProps({
   ops: Number,
 });
 </script>
+
 <template>
   <article class="test-case">
     <header>
@@ -22,6 +23,7 @@ const props = defineProps({
       lang="javascript"
       readonly
       width="100%"
+      theme="a11y-dark"
     />
   </article>
 </template>
@@ -29,29 +31,30 @@ const props = defineProps({
 <style scoped>
 .test-case {
   border-radius: 12px;
-  padding: 4px;
   display: flex;
+  padding: 5px;
   flex-direction: column;
-  background: #a8a8a8;
+  background: var(--color-background-primary);
+  gap: 5px;
 }
 header {
   display: flex;
-  border-radius: 100px;
-  background: #2a2a2a;
+  border-radius: 10px;
   justify-content: space-between;
   font-size: 12px;
-  padding: 5px;
+  padding: 5px 7px;
   align-items: center;
+  background: var(--color-background-secondary);
 }
 .test-id {
   width: 20px;
   height: 20px;
-  background: #180a0a;
   border-radius: 999px;
   justify-content: center;
   align-items: center;
   display: flex;
-  color: rgba(255, 255, 255, 0.7);
+  background: var(--color-background-tertiary);
+  color: var(--color-text);
 }
 
 .code {

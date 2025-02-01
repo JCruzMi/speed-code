@@ -1,10 +1,12 @@
 <script setup lang="ts">
 import TestCases from "@/components/TestCases.vue";
 import GlobalCase from "@/components/GlobalCase.vue";
+import ToggleTheme from "@/components/ToggleTheme.vue";
 </script>
 
 <template>
   <main class="container">
+    <ToggleTheme />
     <GlobalCase />
     <TestCases />
   </main>

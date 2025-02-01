@@ -11,6 +11,7 @@
     "type-check": "vue-tsc --build"
   },
   "dependencies": {
+    "@vueuse/core": "^12.5.0",
     "highlight.js": "11.7.0",
     "pinia": "^2.3.1",
     "simple-code-editor": "^2.0.9",
