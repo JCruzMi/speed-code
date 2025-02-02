@@ -1,8 +1,7 @@
-<script lang="ts" setup>
-import { useDark, useToggle } from "@vueuse/core";
+<script setup>
+import { useDark } from '@vueuse/core';
 
 const isDark = useDark();
-const toggleDark = useToggle(isDark);
 </script>
 
 <template>
@@ -75,6 +74,7 @@ const toggleDark = useToggle(isDark);
 </template>
 
 <style scoped>
+/* From Uiverse.io by RiccardoRapelli */
 .switch {
   position: relative;
   display: inline-block;
@@ -104,7 +104,7 @@ const toggleDark = useToggle(isDark);
 
 .sun-moon {
   position: absolute;
-  content: "";
+  content: '';
   height: 26px;
   width: 26px;
   left: 4px;
