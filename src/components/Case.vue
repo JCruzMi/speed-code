@@ -1,12 +1,12 @@
 <script setup>
-import { defineProps } from "vue";
-import Editor from "simple-code-editor";
-import hljs from "highlight.js";
+import Editor from 'simple-code-editor';
+import hljs from 'highlight.js';
 
 const props = defineProps({
   id: Number,
   code: String,
   ops: Number,
+  theme: String,
 });
 </script>
 
@@ -23,7 +23,7 @@ const props = defineProps({
       lang="javascript"
       readonly
       width="100%"
-      theme="a11y-dark"
+      :theme="theme"
     />
   </article>
 </template>

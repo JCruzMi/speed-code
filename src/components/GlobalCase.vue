@@ -1,7 +1,6 @@
 <script setup>
-import { ref } from "vue";
-import Editor from "simple-code-editor";
-import hljs from "highlight.js";
+import Editor from 'simple-code-editor';
+import hljs from 'highlight.js';
 
 const code = ref(`function() {
   console.log('Hello, World!');
