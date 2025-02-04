@@ -1,14 +1,7 @@
-<script setup lang="ts">
-import { RouterLink, RouterView } from 'vue-router'
-import HomeView from './views/HomeView.vue'
-</script>
+<script setup lang="ts"></script>
 
 <template>
-  <div>
-      <HomeView />
-  </div>
+  <router-view />
 </template>
 
-<style scoped>
-
-</style>
+<style scoped></style>

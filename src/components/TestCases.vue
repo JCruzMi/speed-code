@@ -1,6 +1,7 @@
 <script setup>
-import { ref } from 'vue';
-import Case from './Case.vue';
+import { useDark } from '@vueuse/core';
+
+const isDark = useDark();
 
 const cases = ref([
   {
@@ -37,6 +38,7 @@ const cases = ref([
       :ops="testCase.ops"
       :line-nums="true"
       :wrap="true"
+      :theme="isDark ? 'a11y-dark' : 'a11y-light'"
     />
     <button class="send-button">Benchmark code! 🚀</button>
   </div>
@@ -52,14 +54,15 @@ const cases = ref([
 .send-button {
   width: 200px;
   border-radius: 6px;
-  background: rgba(255, 255, 255, 0.3);
+  background: var(--color-background-primary);
   border: 0;
-  color: #ffffff;
+  color: var(--color-text);
   cursor: pointer;
   padding: 6px;
   transition: background 0.3 ease;
   &:hover {
-    background: rgba(255, 255, 255, alpha) 0.5;
+    background: rgba(0, 0, 0, 0.5);
+    color: #ffffff;
   }
 }
 </style>
