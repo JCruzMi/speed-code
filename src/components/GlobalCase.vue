@@ -1,20 +1,18 @@
 <script setup>
-import Editor from 'simple-code-editor';
-import hljs from 'highlight.js';
+import { useDark } from "@vueuse/core";
+import Editor from "simple-code-editor";
+import hljs from "highlight.js";
 
-const code = ref(`function() {
-  console.log('Hello, World!');
-}`);
-
-const highlightCode = (code) => hljs.highlightAuto(code).value;
+const global = defineModel();
+const isDark = useDark();
+const highlightCode = (global) => hljs.highlightAuto(global).value;
 </script>
 
 <template>
   <h2>Global case</h2>
   <Editor
-    v-model="code"
+    v-model="global"
     :highlight="highlightCode"
-    lang="javascript"
-    theme="a11y-dark"
+    :theme="isDark ? 'a11y-dark' : 'a11y-light'"
   />
 </template>

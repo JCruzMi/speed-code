@@ -1,11 +1,11 @@
 <script setup>
-import Editor from 'simple-code-editor';
-import hljs from 'highlight.js';
+import Editor from "simple-code-editor";
+import hljs from "highlight.js";
 
 const props = defineProps({
   id: Number,
   code: String,
-  ops: Number,
+  ops: String,
   theme: String,
 });
 </script>
@@ -18,9 +18,9 @@ const props = defineProps({
     </header>
 
     <Editor
+      class="code"
       :value="code"
       :highlight="hljs.highlightAuto"
-      lang="javascript"
       readonly
       width="100%"
       :theme="theme"
