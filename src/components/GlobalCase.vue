@@ -1,20 +1,13 @@
 <script setup>
-import Editor from 'simple-code-editor';
-import hljs from 'highlight.js';
+import Editor from "simple-code-editor";
+import hljs from "highlight.js";
 
-const code = ref(`function() {
-  console.log('Hello, World!');
-}`);
+const global = defineModel();
 
-const highlightCode = (code) => hljs.highlightAuto(code).value;
+const highlightCode = (global) => hljs.highlightAuto(global).value;
 </script>
 
 <template>
   <h2>Global case</h2>
-  <Editor
-    v-model="code"
-    :highlight="highlightCode"
-    lang="javascript"
-    theme="a11y-dark"
-  />
+  <Editor v-model="global" :highlight="highlightCode" :theme="theme" />
 </template>

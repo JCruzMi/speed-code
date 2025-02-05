@@ -1,12 +1,17 @@
 <script setup>
-import { useDark } from '@vueuse/core';
+import { useDark, useToggle } from "@vueuse/core";
 
 const isDark = useDark();
 </script>
 
 <template>
   <label class="switch">
-    <input id="input" type="checkbox" v-model="isDark" />
+    <input
+      id="input"
+      type="checkbox"
+      v-model="isDark"
+      aria-label="Toggle dark mode"
+    />
     <div class="slider round">
       <div class="sun-moon">
         <svg id="moon-dot-1" class="moon-dot" viewBox="0 0 100 100">
@@ -74,7 +79,6 @@ const isDark = useDark();
 </template>
 
 <style scoped>
-/* From Uiverse.io by RiccardoRapelli */
 .switch {
   position: relative;
   display: inline-block;
@@ -104,7 +108,7 @@ const isDark = useDark();
 
 .sun-moon {
   position: absolute;
-  content: '';
+  content: "";
   height: 26px;
   width: 26px;
   left: 4px;

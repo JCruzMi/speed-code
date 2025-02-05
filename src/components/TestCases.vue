@@ -6,23 +6,23 @@ const isDark = useDark();
 const cases = ref([
   {
     id: 1,
-    code: `data.find(x => x == 1000)`,
-    ops: 1000,
+    code: `data.find(x => x == 100)`,
+    ops: "1000 ops/s",
   },
   {
     id: 2,
-    code: `data.find(x => x == 1000)`,
-    ops: 1000,
+    code: `data.find(x => x == 200)`,
+    ops: "1000 ops/s",
   },
   {
     id: 3,
-    code: `data.find(x => x == 1000)`,
-    ops: 1000,
+    code: `data.find(x => x == 400)`,
+    ops: "1000 ops/s",
   },
   {
     id: 4,
-    code: `data.find(x => x == 1000)`,
-    ops: 1000,
+    code: `data.find(x => x == 800)`,
+    ops: "1000 ops/s",
   },
 ]);
 </script>
@@ -40,7 +40,6 @@ const cases = ref([
       :wrap="true"
       :theme="isDark ? 'a11y-dark' : 'a11y-light'"
     />
-    <button class="send-button">Benchmark code! 🚀</button>
   </div>
 </template>
 
@@ -49,20 +48,5 @@ const cases = ref([
   display: flex;
   flex-direction: column;
   gap: 16px;
-}
-
-.send-button {
-  width: 200px;
-  border-radius: 6px;
-  background: var(--color-background-primary);
-  border: 0;
-  color: var(--color-text);
-  cursor: pointer;
-  padding: 6px;
-  transition: background 0.3 ease;
-  &:hover {
-    background: rgba(0, 0, 0, 0.5);
-    color: #ffffff;
-  }
 }
 </style>
