@@ -1,5 +1,5 @@
 <script setup>
-import { useDark } from '@vueuse/core';
+import { useDark } from "@vueuse/core";
 
 const isDark = useDark();
 
@@ -7,22 +7,22 @@ const cases = ref([
   {
     id: 1,
     code: `data.find(x => x == 100)`,
-    ops: "1000 ops/s",
+    ops: "",
   },
   {
     id: 2,
     code: `data.find(x => x == 200)`,
-    ops: "1000 ops/s",
+    ops: "",
   },
   {
     id: 3,
     code: `data.find(x => x == 400)`,
-    ops: "1000 ops/s",
+    ops: "",
   },
   {
     id: 4,
     code: `data.find(x => x == 800)`,
-    ops: "1000 ops/s",
+    ops: "",
   },
 ]);
 </script>

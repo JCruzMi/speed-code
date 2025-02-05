@@ -37,15 +37,17 @@ const props = defineProps({
   background: var(--color-background-primary);
   gap: 5px;
 }
+
 header {
   display: flex;
   border-radius: 10px;
   justify-content: space-between;
   font-size: 12px;
-  padding: 5px 7px;
+  padding: 7px;
   align-items: center;
   background: var(--color-background-secondary);
 }
+
 .test-id {
   width: 20px;
   height: 20px;
@@ -57,7 +59,9 @@ header {
   color: var(--color-text);
 }
 
-.code {
-  border-radius: 0 0 6px 6px;
+.ops {
+  padding: 7px;
+  background-color: var(--color-background-tertiary);
+  border-radius: 10px;
 }
 </style>
