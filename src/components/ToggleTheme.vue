@@ -1,17 +1,12 @@
 <script setup>
-import { useDark, useToggle } from "@vueuse/core";
+import { useDark } from "@vueuse/core";
 
 const isDark = useDark();
 </script>
 
 <template>
   <label class="switch">
-    <input
-      id="input"
-      type="checkbox"
-      v-model="isDark"
-      aria-label="Toggle dark mode"
-    />
+    <input id="input" type="checkbox" v-model="isDark" aria-label="Toggle dark mode" />
     <div class="slider round">
       <div class="sun-moon">
         <svg id="moon-dot-1" class="moon-dot" viewBox="0 0 100 100">
@@ -311,7 +306,7 @@ const isDark = useDark();
   width: 20px;
   top: 2px;
   left: 3px;
-  animation-delay: 0.3s;
+  animation-delay: 0.5s;
 }
 
 #star-2 {
@@ -331,7 +326,7 @@ const isDark = useDark();
   width: 18px;
   top: 0px;
   left: 18px;
-  animation-delay: 1.3s;
+  animation-delay: 1.5s;
 }
 
 @keyframes star-twinkle {

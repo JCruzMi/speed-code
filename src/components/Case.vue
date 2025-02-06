@@ -21,7 +21,6 @@ const props = defineProps({
       class="code"
       :value="code"
       :highlight="hljs.highlightAuto"
-      readonly
       width="100%"
       :theme="theme"
     />

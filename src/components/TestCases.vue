@@ -2,36 +2,14 @@
 import { useDark } from "@vueuse/core";
 
 const isDark = useDark();
-
-const cases = ref([
-  {
-    id: 1,
-    code: `data.find(x => x == 100)`,
-    ops: "",
-  },
-  {
-    id: 2,
-    code: `data.find(x => x == 200)`,
-    ops: "",
-  },
-  {
-    id: 3,
-    code: `data.find(x => x == 400)`,
-    ops: "",
-  },
-  {
-    id: 4,
-    code: `data.find(x => x == 800)`,
-    ops: "",
-  },
-]);
+const props = defineProps(["cases"]);
 </script>
 
 <template>
   <h2>Test cases</h2>
   <div class="test-cases">
     <Case
-      v-for="testCase in cases"
+      v-for="testCase in props.cases"
       :key="testCase.id"
       :id="testCase.id"
       :code="testCase.code"

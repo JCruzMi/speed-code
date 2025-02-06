@@ -5,35 +5,63 @@ import ToggleTheme from "@/components/ToggleTheme.vue";
 import Chart from "@/components/Chart.vue";
 
 const globalCode = ref(`const data = [...Array(1000).keys()];`);
+const cases = ref([
+  {
+    id: 1,
+    code: `data.find(x => x == 100)`,
+    ops: "",
+  },
+  {
+    id: 2,
+    code: `data.find(x => x == 200)`,
+    ops: "",
+  },
+  {
+    id: 3,
+    code: `data.find(x => x == 400)`,
+    ops: "",
+  },
+  {
+    id: 4,
+    code: `data.find(x => x == 800)`,
+    ops: "",
+  },
+]);
+
+const results = ref([]);
 
 async function runTest({ code, data }) {
   const worker = new Worker("worker.js");
   worker.postMessage({ code, data, duration: 1000 });
 
-  const { resolve, promise } = Promise.withResolvers();
-  worker.onmessage = (event) => {
-    resolve(event.data);
-  };
-  return promise;
+  return new Promise((resolve) => {
+    worker.onmessage = (event) => resolve(event.data);
+  });
 }
 
 async function runTestCases() {
-  const $testCases = document.querySelectorAll(".test-case");
   const globalCodeValue = globalCode.value;
 
-  $testCases.forEach(async (testCase) => {
-    const $code = testCase.querySelector(".code");
-    const $ops = testCase.querySelector(".ops");
+  cases.value.forEach((testCase) => {
+    testCase.ops = "Loading...";
+  });
 
-    const codeValue = $code.querySelector("textarea").value;
-    $ops.textContent = "Loading...";
+  results.value = [];
 
-    const result = await runTest({
-      code: codeValue,
-      data: globalCodeValue,
-    });
+  const newResults = await Promise.all(
+    cases.value.map((testCase) =>
+      runTest({
+        code: testCase.code,
+        data: globalCodeValue,
+      }).catch(() => 0)
+    )
+  );
 
-    $ops.textContent = `${result.toLocaleString()} ops/s`;
+  results.value = newResults;
+
+  cases.value.forEach((testCase, index) => {
+    const ops = newResults[index];
+    testCase.ops = ops ? `${ops.toLocaleString()} ops/s` : "Error";
   });
 }
 
@@ -47,13 +75,13 @@ onMounted(() => {
     <article class="code-container">
       <ToggleTheme />
       <GlobalCase v-model="globalCode" />
-      <TestCases />
+      <TestCases :cases="cases" />
       <button class="send-button" @click="runTestCases">
         Benchmark code! 🚀
       </button>
     </article>
     <aside class="chart-container">
-      <Chart />
+      <Chart :results="results" />
     </aside>
   </main>
 </template>
@@ -71,7 +99,7 @@ onMounted(() => {
   -webkit-overflow-scrolling: touch;
 }
 
-@media (orientation: landscape) {
+@media (min-width: 1024px) {
   .container {
     grid-template-areas: "tests graph";
     grid-template-columns: 2fr 1.38fr;
