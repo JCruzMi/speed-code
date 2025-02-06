@@ -8,6 +8,12 @@ const props = defineProps({
   ops: String,
   theme: String,
 });
+
+const emit = defineEmits(["update:code"]);
+
+const updateCode = (event) => {
+  emit("update:code", { id: props.id, newCode: event.target.value });
+};
 </script>
 
 <template>
@@ -21,6 +27,7 @@ const props = defineProps({
       class="code"
       :value="code"
       :highlight="hljs.highlightAuto"
+      @input="updateCode"
       width="100%"
       :theme="theme"
     />

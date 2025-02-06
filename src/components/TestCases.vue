@@ -3,6 +3,15 @@ import { useDark } from "@vueuse/core";
 
 const isDark = useDark();
 const props = defineProps(["cases"]);
+
+const emit = defineEmits(["update:cases"]);
+
+const handleCodeUpdate = ({ id, newCode }) => {
+  const updatedCases = props.cases.map((testCase) =>
+    testCase.id === id ? { ...testCase, code: newCode } : testCase
+  );
+  emit("update:cases", updatedCases);
+};
 </script>
 
 <template>
@@ -17,6 +26,7 @@ const props = defineProps(["cases"]);
       :line-nums="true"
       :wrap="true"
       :theme="isDark ? 'a11y-dark' : 'a11y-light'"
+      @update:code="handleCodeUpdate"
     />
   </div>
 </template>

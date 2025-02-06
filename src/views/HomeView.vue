@@ -75,7 +75,7 @@ onMounted(() => {
     <article class="code-container">
       <ToggleTheme />
       <GlobalCase v-model="globalCode" />
-      <TestCases :cases="cases" />
+      <TestCases v-model:cases="cases" />
       <button class="send-button" @click="runTestCases">
         Benchmark code! 🚀
       </button>
