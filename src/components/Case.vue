@@ -1,6 +1,6 @@
 <script setup>
-import Editor from "simple-code-editor";
-import hljs from "highlight.js";
+import Editor from 'simple-code-editor';
+import hljs from 'highlight.js';
 
 const props = defineProps({
   id: Number,
@@ -9,25 +9,28 @@ const props = defineProps({
   theme: String,
 });
 
-const emit = defineEmits(["update:code"]);
+const code = defineModel('code', {
+  required: true,
+  type: String,
+});
 
-const updateCode = (event) => {
-  emit("update:code", { id: props.id, newCode: event.target.value });
-};
+const emit = defineEmits(['remove']);
 </script>
 
 <template>
   <article class="test-case">
     <header>
       <span class="test-id">{{ id }}</span>
-      <span class="ops">{{ ops }}</span>
+      <div class="ops-container">
+        <span class="ops">{{ ops }}</span>
+        <span class="test-id delete" @click="emit('remove', id)">X</span>
+      </div>
     </header>
 
     <Editor
       class="code"
-      :value="code"
+      v-model="code"
       :highlight="hljs.highlightAuto"
-      @input="updateCode"
       width="100%"
       :theme="theme"
     />
@@ -35,6 +38,13 @@ const updateCode = (event) => {
 </template>
 
 <style scoped>
+.ops-container {
+  display: flex;
+  gap: 5px;
+  justify-items: center;
+  align-items: center;
+}
+
 .test-case {
   border-radius: 12px;
   display: flex;
@@ -65,9 +75,19 @@ header {
   color: var(--color-text);
 }
 
+.delete {
+  cursor: pointer;
+  height: 30px !important;
+  width: 30px !important;
+  display: flex;
+  border-radius: 8px;
+  justify-content: center;
+  align-items: center;
+}
+
 .ops {
   padding: 7px;
   background-color: var(--color-background-tertiary);
-  border-radius: 10px;
+  border-radius: 8px;
 }
 </style>

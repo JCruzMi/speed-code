@@ -1,37 +1,57 @@
 <script setup>
-import { useDark } from "@vueuse/core";
+import { useDark } from '@vueuse/core';
 
 const isDark = useDark();
-const props = defineProps(["cases"]);
 
-const emit = defineEmits(["update:cases"]);
+const cases = defineModel('cases', {
+  required: true,
+  type: Array,
+});
 
-const handleCodeUpdate = ({ id, newCode }) => {
-  const updatedCases = props.cases.map((testCase) =>
-    testCase.id === id ? { ...testCase, code: newCode } : testCase
-  );
-  emit("update:cases", updatedCases);
-};
+const emit = defineEmits(['remove', 'add']);
+
+function getIndexCase(id) {
+  return cases.value.findIndex((testCase) => testCase.id === id) + 1;
+}
 </script>
 
 <template>
-  <h2>Test cases</h2>
+  <div class="header-test-cases">
+    <h2>Test cases</h2>
+    <button @click="emit('add')" class="add">Add Case</button>
+  </div>
   <div class="test-cases">
     <Case
-      v-for="testCase in props.cases"
+      v-for="testCase in cases"
       :key="testCase.id"
-      :id="testCase.id"
+      :id="getIndexCase(testCase.id)"
       :code="testCase.code"
       :ops="testCase.ops"
       :line-nums="true"
       :wrap="true"
       :theme="isDark ? 'a11y-dark' : 'a11y-light'"
-      @update:code="handleCodeUpdate"
+      v-model:code="testCase.code"
+      @remove="emit('remove', testCase.id)"
     />
   </div>
 </template>
 
 <style scoped>
+.add {
+  background-color: var(--color-background-tertiary);
+  border-radius: 8px;
+  padding: 7px;
+  cursor: pointer;
+  border: var(--color-background-primary) solid 2px;
+}
+
+.header-test-cases {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+}
+
 .test-cases {
   display: flex;
   flex-direction: column;

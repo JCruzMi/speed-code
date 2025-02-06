@@ -1,14 +1,14 @@
 <script setup>
-import { defineProps, ref, watch } from "vue";
+import { defineProps, ref, watch } from 'vue';
 
 const props = defineProps({
   results: Array,
 });
 
 const bars = ref([{ height: 0 }, { height: 0 }, { height: 0 }, { height: 0 }]);
-const percentages = ref(["...", "...", "...", "..."]);
+const percentages = ref(['...', '...', '...', '...']);
 const loading = ref(true);
-const COLORS = ["green", "yellow", "orange", "red", "blue", "purple"];
+const COLORS = ['green', 'yellow', 'orange', 'red', 'blue', 'purple'];
 
 watch(
   () => props.results,
@@ -38,18 +38,16 @@ watch(
 </script>
 
 <template>
-  <svg class="chart" viewBox="0 0 200 300">
-    <rect
-      v-for="(bar, index) in bars"
-      :key="index"
+  <div class="">
+    <span
+      v-for="bar in bars"
       class="bar"
-      :x="5 + index * 62"
-      y="-300"
-      width="2"
-      :height="loading ? 0 : bar.height"
-      :fill="bar.fill"
-    ></rect>
-  </svg>
+      :style="{
+        height: loading ? '0px' : '300px',
+        background: bar?.fill,
+      }"
+    ></span>
+  </div>
   <div class="numbers">
     <span v-for="(bar, index) in bars" class="number"> {{ index + 1 }} </span>
   </div>
@@ -66,18 +64,22 @@ watch(
 
 <style>
 .chart {
-  width: 400px;
-  height: 500px;
+  width: 100%;
+  min-width: 100px;
+  height: 100%;
+  display: flex;
 }
 
 .bar {
+  width: 2px;
   transform: scale(1, -1);
   transition: height 0.5s ease;
 }
 
 .numbers {
   margin-top: 10px;
-  width: 400px;
+  width: 100%;
+  min-width: 100px;
   display: flex;
   font-size: 15px;
   justify-content: space-around;
@@ -97,7 +99,8 @@ watch(
 
 .percentages {
   margin-top: 10px;
-  width: 400px;
+  width: 100%;
+  min-width: 100px;
   display: flex;
   font-size: 15px;
   justify-content: space-around;
