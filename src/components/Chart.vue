@@ -38,26 +38,17 @@ watch(
 </script>
 
 <template>
-  <div class="">
+  <div class="chart" v-for="(bar, index) in bars">
     <span
-      v-for="bar in bars"
       class="bar"
       :style="{
-        height: loading ? '0px' : '300px',
+        height: `${bar.height}px`,
         background: bar?.fill,
       }"
     ></span>
-  </div>
-  <div class="numbers">
-    <span v-for="(bar, index) in bars" class="number"> {{ index + 1 }} </span>
-  </div>
-  <div class="percentages">
-    <span
-      v-for="(percentage, index) in percentages"
-      :key="index"
-      class="percentage"
-    >
-      {{ percentage }}
+    <span class="number"> {{ index + 1 }} </span>
+    <span class="percentage">
+      {{ percentages[index] }}
     </span>
   </div>
 </template>
@@ -65,15 +56,20 @@ watch(
 <style>
 .chart {
   width: 100%;
-  min-width: 100px;
   height: 100%;
+  gap: 10px;
   display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: end;
+  min-width: 160px;
 }
 
 .bar {
-  width: 2px;
+  width: 4px;
   transform: scale(1, -1);
   transition: height 0.5s ease;
+  border-radius: 2px;
 }
 
 .numbers {

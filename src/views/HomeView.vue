@@ -123,9 +123,9 @@ onMounted(() => {
 
 .chart-container {
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   justify-content: center;
-  align-items: center;
+  align-items: end;
   padding: 3rem 3rem 4rem;
   overflow-x: auto;
   width: 100%;
@@ -140,10 +140,22 @@ onMounted(() => {
   color: var(--color-text);
   cursor: pointer;
   padding: 6px;
-  transition: background 0.3 ease;
-  &:hover {
-    background: rgba(0, 0, 0, 0.5);
-    color: #ffffff;
+  transition: all 0.4 ease-in-out;
+}
+.send-button:hover {
+  background: rgba(0, 0, 0, 0.5);
+  color: #ffffff;
+}
+
+@media (width < 768px) {
+  .container {
+    flex-direction: column;
+  }
+
+  .chart-container {
+    padding: 3rem 3rem 2rem;
+    overflow-x: auto;
+    min-height: 400px;
   }
 }
 </style>
