@@ -1,14 +1,14 @@
 <script setup>
-import { defineProps, ref, watch } from 'vue';
+import { defineProps, ref, watch } from "vue";
 
 const props = defineProps({
   results: Array,
 });
 
 const bars = ref([{ height: 0 }, { height: 0 }, { height: 0 }, { height: 0 }]);
-const percentages = ref(['...', '...', '...', '...']);
+const percentages = ref(["...", "...", "...", "..."]);
 const loading = ref(true);
-const COLORS = ['green', 'yellow', 'orange', 'red', 'blue', 'purple'];
+const COLORS = ["green", "yellow", "orange", "red", "blue", "purple"];
 
 watch(
   () => props.results,
@@ -38,35 +38,41 @@ watch(
 </script>
 
 <template>
-  <div class="chart" v-for="(bar, index) in bars">
-    <span
-      class="bar"
-      :style="{
-        height: `${bar.height}px`,
-        background: bar?.fill,
-      }"
-    ></span>
-    <span class="number"> {{ index + 1 }} </span>
-    <span class="percentage">
-      {{ percentages[index] }}
-    </span>
+  <div class="chart-container">
+    <div class="chart" v-for="(bar, index) in bars" :key="index">
+      <span
+        class="bar"
+        :style="{
+          height: `${bar.height}px`,
+          background: bar.fill,
+        }"
+      ></span>
+      <span class="number">{{ index + 1 }}</span>
+      <span class="percentage">{{ percentages[index] }}</span>
+    </div>
   </div>
 </template>
 
 <style>
-.chart {
-  width: 100%;
-  height: 100%;
+.chart-container {
+  width: 400px;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
   gap: 10px;
+}
+
+.chart {
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: end;
-  min-width: 160px;
+  justify-content: flex-end;
+  flex-grow: 1;
+  gap: 10px;
 }
 
 .bar {
-  width: 4px;
+  width: 5px;
   transform: scale(1, -1);
   transition: height 0.5s ease;
   border-radius: 2px;
