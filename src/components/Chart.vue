@@ -5,14 +5,26 @@ const props = defineProps({
   results: Array,
 });
 
-const bars = ref([{ height: 0 }, { height: 0 }, { height: 0 }, { height: 0 }]);
-const percentages = ref(["...", "...", "...", "..."]);
+const bars = ref(new Array(props.results.length).fill({ height: 0 }));
+const percentages = ref(new Array(props.results.length).fill("0%"));
 const loading = ref(true);
-const COLORS = ["green", "yellow", "orange", "red", "blue", "purple"];
+const COLORS = [
+  "green",
+  "yellow",
+  "orange",
+  "red",
+  "blue",
+  "purple",
+  "pink",
+  "brown",
+  "gray",
+  "black",
+];
 
 watch(
   () => props.results,
-  (newResults) => {
+  async (newResults) => {
+    console.log(newResults.length);
     if (!newResults || newResults.length === 0) {
       bars.value = [{ height: 0 }, { height: 0 }, { height: 0 }, { height: 0 }];
     } else {
@@ -23,7 +35,7 @@ watch(
         .sort((a, b) => b.value - a.value)
         .map((item) => item.index);
 
-      bars.value = newResults.map((result, index) => ({
+      bars.value = await newResults.map((result, index) => ({
         height: (result / maxOps) * 300,
         fill: COLORS[sortedIndices.indexOf(index)],
       }));
@@ -31,8 +43,8 @@ watch(
       percentages.value = newResults.map(
         (result) => `${Math.round((result / maxOps) * 100)}%`
       );
-      loading.value = false;
     }
+    loading.value = false;
   }
 );
 </script>

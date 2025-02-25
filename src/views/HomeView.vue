@@ -4,6 +4,7 @@ import GlobalCase from "@/components/GlobalCase.vue";
 import ToggleTheme from "@/components/ToggleTheme.vue";
 import Chart from "@/components/Chart.vue";
 
+const results = ref([]);
 const globalCode = ref(`const data = [...Array(1000).keys()];`);
 const cases = ref([
   {
@@ -40,8 +41,6 @@ function addCase() {
   });
 }
 
-const results = ref([]);
-
 async function runTest({ code, data }) {
   cases.value = cases.value.filter((testCase) => testCase.code !== "");
 
@@ -59,8 +58,6 @@ async function runTestCases() {
   cases.value.forEach((testCase) => {
     testCase.ops = "Loading...";
   });
-
-  results.value = [];
 
   const newResults = await Promise.all(
     cases.value.map((testCase) =>
