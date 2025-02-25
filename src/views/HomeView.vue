@@ -1,30 +1,30 @@
 <script setup>
-import TestCases from '@/components/TestCases.vue';
-import GlobalCase from '@/components/GlobalCase.vue';
-import ToggleTheme from '@/components/ToggleTheme.vue';
-import Chart from '@/components/Chart.vue';
+import TestCases from "@/components/TestCases.vue";
+import GlobalCase from "@/components/GlobalCase.vue";
+import ToggleTheme from "@/components/ToggleTheme.vue";
+import Chart from "@/components/Chart.vue";
 
 const globalCode = ref(`const data = [...Array(1000).keys()];`);
 const cases = ref([
   {
     id: 1,
     code: `data.find(x => x == 100)`,
-    ops: '',
+    ops: "",
   },
   {
     id: 2,
     code: `data.find(x => x == 200)`,
-    ops: '',
+    ops: "",
   },
   {
     id: 3,
     code: `data.find(x => x == 400)`,
-    ops: '',
+    ops: "",
   },
   {
     id: 4,
     code: `data.find(x => x == 800)`,
-    ops: '',
+    ops: "",
   },
 ]);
 
@@ -35,18 +35,17 @@ function removeCase(id) {
 function addCase() {
   cases.value.unshift({
     id: cases.value.length + 1,
-    code: '',
-    ops: '',
+    code: "",
+    ops: "",
   });
 }
 
 const results = ref([]);
 
 async function runTest({ code, data }) {
-  // limpiar los que tengan code vacio
-  cases.value = cases.value.filter((testCase) => testCase.code !== '');
+  cases.value = cases.value.filter((testCase) => testCase.code !== "");
 
-  const worker = new Worker('worker.js');
+  const worker = new Worker("worker.js");
   worker.postMessage({ code, data, duration: 1000 });
 
   return new Promise((resolve) => {
@@ -58,7 +57,7 @@ async function runTestCases() {
   const globalCodeValue = globalCode.value;
 
   cases.value.forEach((testCase) => {
-    testCase.ops = 'Loading...';
+    testCase.ops = "Loading...";
   });
 
   results.value = [];
@@ -76,7 +75,7 @@ async function runTestCases() {
 
   cases.value.forEach((testCase, index) => {
     const ops = newResults[index];
-    testCase.ops = ops ? `${ops.toLocaleString()} ops/s` : 'Error';
+    testCase.ops = ops ? `${ops.toLocaleString()} ops/s` : "Error";
   });
 }
 
@@ -87,13 +86,17 @@ onMounted(() => {
 
 <template>
   <main class="container">
-    <article class="code-container">
-      <ToggleTheme />
-      <GlobalCase v-model="globalCode" />
-      <TestCases v-model:cases="cases" @remove="removeCase" @add="addCase" />
-      <button class="send-button" @click="runTestCases">
-        Benchmark code! 🚀
-      </button>
+    <article class="main-container">
+      <header class="header">
+        <ToggleTheme />
+        <button class="send-button" @click="runTestCases">
+          Benchmark code! 🚀
+        </button>
+      </header>
+      <div class="case-container">
+        <GlobalCase v-model="globalCode" />
+        <TestCases v-model:cases="cases" @remove="removeCase" @add="addCase" />
+      </div>
     </article>
     <aside class="chart-container">
       <Chart :results="results" />
@@ -111,14 +114,27 @@ onMounted(() => {
   -webkit-overflow-scrolling: touch;
 }
 
-.code-container {
+.main-container {
+  width: 100%;
+  overflow-y: auto;
+}
+
+.header {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  position: sticky;
+  top: 0;
+  background-color: var(--color-background);
+  z-index: 100;
+  padding: 2rem 3rem;
+}
+
+.case-container {
   display: flex;
   flex-direction: column;
   gap: 16px;
-  overflow-y: auto;
-  padding: 3rem 3rem;
-  max-height: 100vh;
-  width: 100%;
+  padding: 0 3rem;
 }
 
 .chart-container {
@@ -133,15 +149,14 @@ onMounted(() => {
 }
 
 .send-button {
-  width: 200px;
-  border-radius: 6px;
-  background: var(--color-background-primary);
-  border: 0;
-  color: var(--color-text);
+  background-color: var(--color-background-tertiary);
+  border-radius: 8px;
+  padding: 7px;
   cursor: pointer;
-  padding: 6px;
-  transition: all 0.4 ease-in-out;
+  border: var(--color-background-primary) solid 2px;
+  width: 150px;
 }
+
 .send-button:hover {
   background: rgba(0, 0, 0, 0.5);
   color: #ffffff;
