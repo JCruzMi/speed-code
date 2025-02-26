@@ -18,9 +18,12 @@ function getIndexCase(id) {
 <template>
   <div class="header-test-cases">
     <h2>Test cases</h2>
-    <button @click="emit('add')" class="add">Add Case</button>
+    <button @click="emit('add')" class="add" :disabled="cases.length === 10">
+      Add Case
+    </button>
   </div>
   <div class="test-cases">
+    <span v-if="cases.length === 0">No test cases</span>
     <Case
       v-for="testCase in cases"
       :key="testCase.id"
@@ -43,6 +46,11 @@ function getIndexCase(id) {
   padding: 7px;
   cursor: pointer;
   border: var(--color-background-primary) solid 2px;
+}
+
+.add:disabled {
+  cursor: not-allowed;
+  opacity: 0.5;
 }
 
 .header-test-cases {

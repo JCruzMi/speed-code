@@ -24,7 +24,6 @@ const COLORS = [
 watch(
   () => props.results,
   async (newResults) => {
-    console.log(newResults.length);
     if (!newResults || newResults.length === 0) {
       bars.value = [{ height: 0 }, { height: 0 }, { height: 0 }, { height: 0 }];
     } else {
@@ -51,17 +50,20 @@ watch(
 
 <template>
   <div class="chart-container">
-    <div class="chart" v-for="(bar, index) in bars" :key="index">
-      <span
-        class="bar"
-        :style="{
-          height: `${bar.height}px`,
-          background: bar.fill,
-        }"
-      ></span>
-      <span class="number">{{ index + 1 }}</span>
-      <span class="percentage">{{ percentages[index] }}</span>
-    </div>
+    <template v-if="!loading && results.length > 0">
+      <div class="chart" v-for="(bar, index) in bars" :key="index">
+        <span
+          class="bar"
+          :style="{
+            height: `${bar.height}px`,
+            background: bar.fill,
+          }"
+        ></span>
+        <span class="number">{{ index + 1 }}</span>
+        <span class="percentage">{{ percentages[index] }}</span>
+      </div>
+    </template>
+    <p v-else class="no-data">No data</p>
   </div>
 </template>
 
