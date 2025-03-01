@@ -16,3 +16,9 @@ const highlightCode = (global) => hljs.highlightAuto(global).value;
     :theme="isDark ? 'a11y-dark' : 'a11y-light'"
   />
 </template>
+
+<style scoped>
+.code-editor {
+  width: 100% !important;
+}
+</style>

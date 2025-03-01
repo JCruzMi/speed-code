@@ -11,6 +11,7 @@
     "type-check": "vue-tsc --build"
   },
   "dependencies": {
+    "@formkit/auto-animate": "^0.8.2",
     "@vueuse/core": "^12.5.0",
     "highlight.js": "11.7.0",
     "pinia": "^2.3.1",
