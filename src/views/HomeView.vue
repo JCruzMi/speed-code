@@ -87,9 +87,7 @@ onMounted(() => {
     <article class="main-container">
       <header class="header">
         <ToggleTheme />
-        <button class="send-button" @click="runTestCases">
-          Benchmark code! 🚀
-        </button>
+        <button @click="runTestCases">Benchmark code! 🚀</button>
       </header>
       <div class="case-container">
         <GlobalCase v-model="globalCode" />
@@ -126,14 +124,14 @@ onMounted(() => {
   top: 0;
   background-color: var(--color-background);
   z-index: 100;
-  padding: 2rem 3rem;
+  padding: 2rem 2rem;
 }
 
 .case-container {
   display: flex;
   flex-direction: column;
   gap: 16px;
-  padding: 0 3rem 3rem 3rem;
+  padding: 0 2rem 2rem 2rem;
 }
 
 .chart-container {
@@ -141,33 +139,21 @@ onMounted(() => {
   flex-direction: row;
   justify-content: center;
   align-items: end;
-  padding: 3rem 3rem 4rem;
+  padding: 2rem 2rem 2rem;
   overflow-x: scroll;
   width: 100%;
   background-color: var(--color-background-secondary);
 }
 
-.send-button {
-  background-color: var(--color-background-tertiary);
-  border-radius: 8px;
-  padding: 7px;
-  cursor: pointer;
-  border: var(--color-background-primary) solid 2px;
-  width: 150px;
-}
-
-.send-button:hover {
-  background: rgba(0, 0, 0, 0.5);
-  color: #ffffff;
-}
-
 @media (width < 768px) {
   .container {
     flex-direction: column;
+    height: 100%;
+    position: sticky;
+    top: 0;
   }
 
   .chart-container {
-    padding: 2rem 2rem 2rem;
     overflow-x: auto;
     min-height: auto;
   }
@@ -176,11 +162,6 @@ onMounted(() => {
     display: flex;
     flex-direction: column;
     gap: 16px;
-    padding: 0 2rem 2rem 2rem;
-  }
-
-  .header {
-    padding: 2rem 2rem;
   }
 }
 </style>

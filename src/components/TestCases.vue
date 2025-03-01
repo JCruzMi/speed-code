@@ -40,14 +40,6 @@ function getIndexCase(id) {
 </template>
 
 <style scoped>
-.add {
-  background-color: var(--color-background-tertiary);
-  border-radius: 8px;
-  padding: 7px;
-  cursor: pointer;
-  border: var(--color-background-primary) solid 2px;
-}
-
 .add:disabled {
   cursor: not-allowed;
   opacity: 0.5;

@@ -20,10 +20,10 @@ const emit = defineEmits(['remove']);
 <template>
   <article class="test-case">
     <header>
-      <span class="test-id">{{ id }}</span>
+      <span class="ops test-id">{{ id }}</span>
       <div class="ops-container">
         <span class="ops">{{ ops }}</span>
-        <span class="test-id delete" @click="emit('remove', id)">X</span>
+        <button class="remove" @click="emit('remove', id)">✖️</button>
       </div>
     </header>
 
@@ -54,6 +54,21 @@ const emit = defineEmits(['remove']);
   gap: 5px;
 }
 
+.test-id {
+  width: 30px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.remove {
+  width: 35px;
+  height: 35px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
 header {
   display: flex;
   border-radius: 10px;
@@ -64,30 +79,9 @@ header {
   background: var(--color-background-secondary);
 }
 
-.test-id {
-  width: 20px;
-  height: 20px;
-  border-radius: 999px;
-  justify-content: center;
-  align-items: center;
-  display: flex;
-  background: var(--color-background-tertiary);
-  color: var(--color-text);
-}
-
-.delete {
-  cursor: pointer;
-  height: 30px !important;
-  width: 30px !important;
-  display: flex;
-  border-radius: 8px;
-  justify-content: center;
-  align-items: center;
-}
-
 .ops {
-  padding: 7px;
+  padding: 7px 10px;
   background-color: var(--color-background-tertiary);
-  border-radius: 8px;
+  border-radius: 50px;
 }
 </style>
