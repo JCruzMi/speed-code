@@ -98,3 +98,8 @@ button:hover {
   color: #ffffff;
   border: var(--color-border-hover) solid 2px;
 }
+
+button:disabled {
+  cursor: not-allowed;
+  opacity: 0.5;
+}

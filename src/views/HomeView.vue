@@ -28,6 +28,7 @@ const cases = ref([
     ops: '',
   },
 ]);
+const loadingCases = ref(true);
 
 function removeCase(id) {
   cases.value = cases.value.filter((testCase) => testCase.id !== id);
@@ -57,8 +58,9 @@ async function runTestCases() {
   const globalCodeValue = globalCode.value;
 
   cases.value.forEach((testCase) => {
-    testCase.ops = 'Loading...';
+    testCase.ops = 'loading';
   });
+  loadingCases.value = true;
 
   const newResults = await Promise.all(
     cases.value.map((testCase) =>
@@ -75,11 +77,15 @@ async function runTestCases() {
     const ops = newResults[index];
     testCase.ops = ops ? `${ops.toLocaleString()} ops/s` : 'Error';
   });
+
+  loadingCases.value = false;
 }
 
 onMounted(() => {
   runTestCases();
 });
+
+provide('loadingCases', loadingCases);
 </script>
 
 <template>
@@ -87,7 +93,9 @@ onMounted(() => {
     <article class="main-container">
       <header class="header">
         <ToggleTheme />
-        <button @click="runTestCases">Benchmark code! 🚀</button>
+        <button @click="runTestCases" :disabled="loadingCases">
+          Benchmark code! 🚀
+        </button>
       </header>
       <div class="case-container">
         <GlobalCase v-model="globalCode" />

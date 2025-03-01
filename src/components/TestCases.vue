@@ -13,12 +13,17 @@ const emit = defineEmits(['remove', 'add']);
 function getIndexCase(id) {
   return cases.value.findIndex((testCase) => testCase.id === id) + 1;
 }
+
+const loadingCases = inject('loadingCases');
 </script>
 
 <template>
   <div class="header-test-cases">
     <h2>Test cases</h2>
-    <button @click="emit('add')" class="add" :disabled="cases.length === 10">
+    <button
+      @click="emit('add')"
+      :disabled="cases.length === 10 || loadingCases"
+    >
       Add Case
     </button>
   </div>
@@ -40,11 +45,6 @@ function getIndexCase(id) {
 </template>
 
 <style scoped>
-.add:disabled {
-  cursor: not-allowed;
-  opacity: 0.5;
-}
-
 .header-test-cases {
   display: flex;
   justify-content: space-between;

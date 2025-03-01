@@ -5,7 +5,11 @@ import hljs from 'highlight.js';
 const props = defineProps({
   id: Number,
   code: String,
-  ops: String,
+  ops: {
+    required: false,
+    type: String,
+    default: '0 ops/s',
+  },
   theme: String,
 });
 
@@ -15,6 +19,7 @@ const code = defineModel('code', {
 });
 
 const emit = defineEmits(['remove']);
+const loadingCases = inject('loadingCases');
 </script>
 
 <template>
@@ -23,7 +28,13 @@ const emit = defineEmits(['remove']);
       <span class="ops test-id">{{ id }}</span>
       <div class="ops-container">
         <span class="ops">{{ ops }}</span>
-        <button class="remove" @click="emit('remove', id)">✖️</button>
+        <button
+          class="remove"
+          @click="emit('remove', id)"
+          :disabled="loadingCases"
+        >
+          ✖️
+        </button>
       </div>
     </header>
 
