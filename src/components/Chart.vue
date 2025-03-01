@@ -1,24 +1,24 @@
 <script setup>
-import { defineProps, ref, watch } from "vue";
+import { defineProps, ref, watch } from 'vue';
 
 const props = defineProps({
   results: Array,
 });
 
 const bars = ref(new Array(props.results.length).fill({ height: 0 }));
-const percentages = ref(new Array(props.results.length).fill("0%"));
+const percentages = ref(new Array(props.results.length).fill('0%'));
 const loading = ref(true);
 const COLORS = [
-  "green",
-  "yellow",
-  "orange",
-  "red",
-  "blue",
-  "purple",
-  "pink",
-  "brown",
-  "gray",
-  "black",
+  'green',
+  'yellow',
+  'orange',
+  'red',
+  'blue',
+  'purple',
+  'pink',
+  'brown',
+  'lime',
+  'black',
 ];
 
 watch(
@@ -35,7 +35,7 @@ watch(
         .map((item) => item.index);
 
       bars.value = await newResults.map((result, index) => ({
-        height: (result / maxOps) * 300,
+        height: (result / maxOps) * 260,
         fill: COLORS[sortedIndices.indexOf(index)],
       }));
 
@@ -49,10 +49,11 @@ watch(
 </script>
 
 <template>
-  <div class="chart-container">
-    <template v-if="!loading && results.length > 0">
+  <div class="charts-container">
+    <template v-if="!loading && results.length > 0" v-auto-animate>
       <div class="chart" v-for="(bar, index) in bars" :key="index">
         <span
+          v-auto-animate
           class="bar"
           :style="{
             height: `${bar.height}px`,
@@ -60,18 +61,23 @@ watch(
           }"
         ></span>
         <span class="number">{{ index + 1 }}</span>
-        <span class="percentage">{{ percentages[index] }}</span>
+        <span class="percentage" v-auto-animate>{{ percentages[index] }}</span>
       </div>
     </template>
-    <p v-else class="no-data">No data</p>
+    <template v-else>
+      <div v-for="index in 4" :key="index" class="chart" v-auto-animate>
+        <span class="bar" style="height: 260px; background: gray"></span>
+        <span class="number"></span>
+      </div>
+    </template>
   </div>
 </template>
 
 <style>
-.chart-container {
-  width: 400px;
+.charts-container {
+  width: 100%;
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
   align-items: flex-end;
   gap: 10px;
 }

@@ -1,8 +1,8 @@
 <script setup>
-import TestCases from "@/components/TestCases.vue";
-import GlobalCase from "@/components/GlobalCase.vue";
-import ToggleTheme from "@/components/ToggleTheme.vue";
-import Chart from "@/components/Chart.vue";
+import TestCases from '@/components/TestCases.vue';
+import GlobalCase from '@/components/GlobalCase.vue';
+import ToggleTheme from '@/components/ToggleTheme.vue';
+import Chart from '@/components/Chart.vue';
 
 const results = ref([]);
 const globalCode = ref(`const data = [...Array(1000).keys()];`);
@@ -10,22 +10,22 @@ const cases = ref([
   {
     id: 1,
     code: `data.find(x => x == 100)`,
-    ops: "",
+    ops: '',
   },
   {
     id: 2,
     code: `data.find(x => x == 200)`,
-    ops: "",
+    ops: '',
   },
   {
     id: 3,
     code: `data.find(x => x == 400)`,
-    ops: "",
+    ops: '',
   },
   {
     id: 4,
     code: `data.find(x => x == 800)`,
-    ops: "",
+    ops: '',
   },
 ]);
 
@@ -35,16 +35,17 @@ function removeCase(id) {
 
 function addCase() {
   cases.value.unshift({
-    id: cases.value.length + 1,
-    code: "",
-    ops: "",
+    id:
+      cases.value.reduce((acc, testCase) => Math.max(acc, testCase.id), 0) + 1,
+    code: '',
+    ops: '',
   });
 }
 
 async function runTest({ code, data }) {
-  cases.value = cases.value.filter((testCase) => testCase.code !== "");
+  cases.value = cases.value.filter((testCase) => testCase.code !== '');
 
-  const worker = new Worker("worker.js");
+  const worker = new Worker('worker.js');
   worker.postMessage({ code, data, duration: 1000 });
 
   return new Promise((resolve) => {
@@ -56,7 +57,7 @@ async function runTestCases() {
   const globalCodeValue = globalCode.value;
 
   cases.value.forEach((testCase) => {
-    testCase.ops = "Loading...";
+    testCase.ops = 'Loading...';
   });
 
   const newResults = await Promise.all(
@@ -72,7 +73,7 @@ async function runTestCases() {
 
   cases.value.forEach((testCase, index) => {
     const ops = newResults[index];
-    testCase.ops = ops ? `${ops.toLocaleString()} ops/s` : "Error";
+    testCase.ops = ops ? `${ops.toLocaleString()} ops/s` : 'Error';
   });
 }
 
@@ -104,10 +105,11 @@ onMounted(() => {
 <style scoped>
 .container {
   width: 100%;
+  height: 100vh;
   display: flex;
   flex-direction: row;
+  justify-content: space-between;
   overflow-y: auto;
-  height: 100vh;
   -webkit-overflow-scrolling: touch;
 }
 
@@ -131,7 +133,7 @@ onMounted(() => {
   display: flex;
   flex-direction: column;
   gap: 16px;
-  padding: 0 3rem;
+  padding: 0 3rem 3rem 3rem;
 }
 
 .chart-container {
@@ -140,7 +142,7 @@ onMounted(() => {
   justify-content: center;
   align-items: end;
   padding: 3rem 3rem 4rem;
-  overflow-x: auto;
+  overflow-x: scroll;
   width: 100%;
   background-color: var(--color-background-secondary);
 }
@@ -165,9 +167,20 @@ onMounted(() => {
   }
 
   .chart-container {
-    padding: 3rem 3rem 2rem;
+    padding: 2rem 2rem 2rem;
     overflow-x: auto;
-    min-height: 400px;
+    min-height: auto;
+  }
+
+  .case-container {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    padding: 0 2rem 2rem 2rem;
+  }
+
+  .header {
+    padding: 2rem 2rem;
   }
 }
 </style>

@@ -1,14 +1,14 @@
 <script setup>
-import { useDark } from "@vueuse/core";
+import { useDark } from '@vueuse/core';
 
 const isDark = useDark();
 
-const cases = defineModel("cases", {
+const cases = defineModel('cases', {
   required: true,
   type: Array,
 });
 
-const emit = defineEmits(["remove", "add"]);
+const emit = defineEmits(['remove', 'add']);
 
 function getIndexCase(id) {
   return cases.value.findIndex((testCase) => testCase.id === id) + 1;
@@ -22,7 +22,7 @@ function getIndexCase(id) {
       Add Case
     </button>
   </div>
-  <div class="test-cases">
+  <div class="test-cases" v-auto-animate>
     <span v-if="cases.length === 0">No test cases</span>
     <Case
       v-for="testCase in cases"
