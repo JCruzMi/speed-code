@@ -3,6 +3,9 @@ import { useDark } from '@vueuse/core';
 import Editor from 'simple-code-editor';
 import hljs from 'highlight.js';
 
+import 'highlight.js/styles/a11y-dark.css';
+import 'highlight.js/styles/a11y-light.css';
+
 const global = defineModel();
 const isDark = useDark();
 
