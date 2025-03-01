@@ -1,5 +1,8 @@
 import { autoAnimatePlugin } from '@formkit/auto-animate/vue';
 
+import 'highlight.js/styles/a11y-dark.css';
+import 'highlight.js/styles/a11y-light.css';
+
 import { createApp } from 'vue';
 
 import { createPinia } from 'pinia';

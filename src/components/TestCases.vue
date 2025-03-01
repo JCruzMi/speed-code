@@ -1,4 +1,5 @@
 <script setup>
+import { computed, inject } from 'vue';
 import { useDark } from '@vueuse/core';
 
 const isDark = useDark();
@@ -15,6 +16,9 @@ function getIndexCase(id) {
 }
 
 const loadingCases = inject('loadingCases');
+
+// Computed para asegurar reactividad en el tema
+const editorTheme = computed(() => (isDark.value ? 'a11y-dark' : 'a11y-light'));
 </script>
 
 <template>
@@ -37,7 +41,7 @@ const loadingCases = inject('loadingCases');
       :ops="testCase.ops"
       :line-nums="true"
       :wrap="true"
-      :theme="isDark ? 'a11y-dark' : 'a11y-light'"
+      :theme="editorTheme"
       v-model:code="testCase.code"
       @remove="emit('remove', testCase.id)"
     />
