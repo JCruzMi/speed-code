@@ -49,6 +49,9 @@ const editorTheme = computed(() => (isDark.value ? 'a11y-dark' : 'a11y-light'));
 </template>
 
 <style scoped>
+@import 'highlight.js/styles/a11y-dark.css';
+@import 'highlight.js/styles/a11y-light.css';
+
 .header-test-cases {
   display: flex;
   justify-content: space-between;

@@ -2,9 +2,6 @@
 import Editor from 'simple-code-editor';
 import hljs from 'highlight.js';
 
-import 'highlight.js/styles/a11y-dark.css';
-import 'highlight.js/styles/a11y-light.css';
-
 const props = defineProps({
   id: Number,
   code: String,
@@ -52,6 +49,9 @@ const loadingCases = inject('loadingCases');
 </template>
 
 <style scoped>
+@import 'highlight.js/styles/a11y-dark.css';
+@import 'highlight.js/styles/a11y-light.css';
+
 .ops-container {
   display: flex;
   gap: 5px;
