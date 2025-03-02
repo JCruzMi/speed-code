@@ -1,20 +1,16 @@
 <script setup>
-import { useDark } from '@vueuse/core';
-
-const isDark = useDark();
-
-const cases = defineModel('cases', {
+const cases = defineModel("cases", {
   required: true,
   type: Array,
 });
 
-const emit = defineEmits(['remove', 'add']);
+const emit = defineEmits(["remove", "add"]);
 
 function getIndexCase(id) {
   return cases.value.findIndex((testCase) => testCase.id === id) + 1;
 }
 
-const loadingCases = inject('loadingCases');
+const loadingCases = inject("loadingCases");
 </script>
 
 <template>
@@ -37,7 +33,7 @@ const loadingCases = inject('loadingCases');
       :ops="testCase.ops"
       :line-nums="true"
       :wrap="true"
-      :theme="isDark ? 'a11y-dark' : 'a11y-light'"
+      theme="a11y-dark"
       v-model:code="testCase.code"
       @remove="emit('remove', testCase.id)"
     />

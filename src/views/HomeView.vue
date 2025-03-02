@@ -1,8 +1,7 @@
 <script setup>
-import TestCases from '@/components/TestCases.vue';
-import GlobalCase from '@/components/GlobalCase.vue';
-import ToggleTheme from '@/components/ToggleTheme.vue';
-import Chart from '@/components/Chart.vue';
+import TestCases from "@/components/TestCases.vue";
+import GlobalCase from "@/components/GlobalCase.vue";
+import Chart from "@/components/Chart.vue";
 
 const results = ref([]);
 const globalCode = ref(`const data = [...Array(1000).keys()];`);
@@ -10,22 +9,22 @@ const cases = ref([
   {
     id: 1,
     code: `data.find(x => x == 100)`,
-    ops: '',
+    ops: "",
   },
   {
     id: 2,
     code: `data.find(x => x == 200)`,
-    ops: '',
+    ops: "",
   },
   {
     id: 3,
     code: `data.find(x => x == 400)`,
-    ops: '',
+    ops: "",
   },
   {
     id: 4,
     code: `data.find(x => x == 800)`,
-    ops: '',
+    ops: "",
   },
 ]);
 const loadingCases = ref(true);
@@ -38,15 +37,15 @@ function addCase() {
   cases.value.unshift({
     id:
       cases.value.reduce((acc, testCase) => Math.max(acc, testCase.id), 0) + 1,
-    code: '',
-    ops: '',
+    code: "",
+    ops: "",
   });
 }
 
 async function runTest({ code, data }) {
-  cases.value = cases.value.filter((testCase) => testCase.code !== '');
+  cases.value = cases.value.filter((testCase) => testCase.code !== "");
 
-  const worker = new Worker('worker.js');
+  const worker = new Worker("worker.js");
   worker.postMessage({ code, data, duration: 1000 });
 
   return new Promise((resolve) => {
@@ -58,7 +57,7 @@ async function runTestCases() {
   const globalCodeValue = globalCode.value;
 
   cases.value.forEach((testCase) => {
-    testCase.ops = 'loading';
+    testCase.ops = "loading";
   });
   loadingCases.value = true;
 
@@ -75,7 +74,7 @@ async function runTestCases() {
 
   cases.value.forEach((testCase, index) => {
     const ops = newResults[index];
-    testCase.ops = ops ? `${ops.toLocaleString()} ops/s` : 'Error';
+    testCase.ops = ops ? `${ops.toLocaleString()} ops/s` : "Error";
   });
 
   loadingCases.value = false;
@@ -85,14 +84,13 @@ onMounted(() => {
   runTestCases();
 });
 
-provide('loadingCases', loadingCases);
+provide("loadingCases", loadingCases);
 </script>
 
 <template>
   <main class="container">
     <article class="main-container">
       <header class="header">
-        <ToggleTheme />
         <button @click="runTestCases" :disabled="loadingCases">
           Benchmark code! 🚀
         </button>
@@ -127,7 +125,7 @@ provide('loadingCases', loadingCases);
 .header {
   display: flex;
   flex-direction: row;
-  justify-content: space-between;
+  justify-content: end;
   position: sticky;
   top: 0;
   background-color: var(--color-background);
